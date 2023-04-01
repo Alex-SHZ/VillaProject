@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VillaAPI.Data;
@@ -11,9 +12,11 @@ using VillaAPI.Data;
 namespace VillaAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230329195112_VillaNumberToDb")]
+    partial class VillaNumberToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +73,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 1,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6150),
+                            CreatedDate = new DateTime(2023, 3, 29, 23, 51, 12, 543, DateTimeKind.Local).AddTicks(9720),
                             Details = "Big villa bulding in 1920",
                             ImageUrl = "",
                             Name = "Royal Villa",
@@ -83,7 +86,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 2,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6170),
+                            CreatedDate = new DateTime(2023, 3, 29, 23, 51, 12, 543, DateTimeKind.Local).AddTicks(9740),
                             Details = "Big villa bulding in 1915",
                             ImageUrl = "",
                             Name = "Premium Pool Villa",
@@ -96,7 +99,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 3,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6180),
+                            CreatedDate = new DateTime(2023, 3, 29, 23, 51, 12, 543, DateTimeKind.Local).AddTicks(9740),
                             Details = "Big villa bulding in 1960",
                             ImageUrl = "",
                             Name = "Luxury Pool Villa",
@@ -109,7 +112,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 4,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6180),
+                            CreatedDate = new DateTime(2023, 3, 29, 23, 51, 12, 543, DateTimeKind.Local).AddTicks(9740),
                             Details = "Big villa bulding in 2011",
                             ImageUrl = "",
                             Name = "Diamond Villa",
@@ -122,7 +125,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 5,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6180),
+                            CreatedDate = new DateTime(2023, 3, 29, 23, 51, 12, 543, DateTimeKind.Local).AddTicks(9740),
                             Details = "Big villa bulding in 1980",
                             ImageUrl = "",
                             Name = "Diamond Pool Villa",
@@ -131,42 +134,6 @@ namespace VillaAPI.Migrations
                             Sqft = 1100,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                });
-
-            modelBuilder.Entity("VillaAPI.Models.VillaNumber", b =>
-                {
-                    b.Property<int>("VillaNo")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Details")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("VillaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("VillaNo");
-
-                    b.HasIndex("VillaId");
-
-                    b.ToTable("VillaNumbers");
-                });
-
-            modelBuilder.Entity("VillaAPI.Models.VillaNumber", b =>
-                {
-                    b.HasOne("VillaAPI.Models.Villa", "Villa")
-                        .WithMany()
-                        .HasForeignKey("VillaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Villa");
                 });
 #pragma warning restore 612, 618
         }

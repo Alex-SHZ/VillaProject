@@ -24,6 +24,7 @@ builder.Services.AddAutoMapper(typeof(MappingConfig));
 #endregion
 
 builder.Services.AddScoped<IVillaRepository, VillaRepository>();
+builder.Services.AddScoped<IVillaNumberRepository, VillaNumberRepository>();
 
 #region Serilog
 
