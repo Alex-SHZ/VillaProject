@@ -5,6 +5,10 @@ VisualStudioVersion = 25.0.1705.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VillaAPI", "VillaAPI.csproj", "{40C6C6D9-467D-4685-9939-9BB415EA3DEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VillaWeb", "..\VillaWeb\VillaWeb.csproj", "{B02C34AB-F1AA-4269-9404-5D4AF246FEC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VillaUtility", "..\VillaUtility\VillaUtility.csproj", "{839C0297-25BD-4047-8802-0A404673843B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{40C6C6D9-467D-4685-9939-9BB415EA3DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40C6C6D9-467D-4685-9939-9BB415EA3DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40C6C6D9-467D-4685-9939-9BB415EA3DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02C34AB-F1AA-4269-9404-5D4AF246FEC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02C34AB-F1AA-4269-9404-5D4AF246FEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02C34AB-F1AA-4269-9404-5D4AF246FEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02C34AB-F1AA-4269-9404-5D4AF246FEC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{839C0297-25BD-4047-8802-0A404673843B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{839C0297-25BD-4047-8802-0A404673843B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{839C0297-25BD-4047-8802-0A404673843B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{839C0297-25BD-4047-8802-0A404673843B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

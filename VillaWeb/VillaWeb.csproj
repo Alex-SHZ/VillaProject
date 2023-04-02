@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <None Remove="Models\DTO\" />
+    <None Remove="Services\" />
+    <None Remove="Services\IServices\" />
+    <None Remove="Views\Villa\" />
+    <None Remove="Views\VillaNumber\" />
+    <None Remove="Models\VM\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\DTO\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\IServices\" />
+    <Folder Include="Views\Villa\" />
+    <Folder Include="Views\VillaNumber\" />
+    <Folder Include="Models\VM\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VillaUtility\VillaUtility.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+</Project>

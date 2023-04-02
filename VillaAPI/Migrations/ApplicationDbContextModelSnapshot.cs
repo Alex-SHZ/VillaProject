@@ -31,18 +31,15 @@ namespace VillaAPI.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Amenity")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Details")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -70,7 +67,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 1,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6150),
+                            CreatedDate = new DateTime(2023, 4, 2, 21, 52, 27, 287, DateTimeKind.Local).AddTicks(1070),
                             Details = "Big villa bulding in 1920",
                             ImageUrl = "",
                             Name = "Royal Villa",
@@ -83,7 +80,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 2,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6170),
+                            CreatedDate = new DateTime(2023, 4, 2, 21, 52, 27, 287, DateTimeKind.Local).AddTicks(1100),
                             Details = "Big villa bulding in 1915",
                             ImageUrl = "",
                             Name = "Premium Pool Villa",
@@ -96,7 +93,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 3,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6180),
+                            CreatedDate = new DateTime(2023, 4, 2, 21, 52, 27, 287, DateTimeKind.Local).AddTicks(1100),
                             Details = "Big villa bulding in 1960",
                             ImageUrl = "",
                             Name = "Luxury Pool Villa",
@@ -109,7 +106,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 4,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6180),
+                            CreatedDate = new DateTime(2023, 4, 2, 21, 52, 27, 287, DateTimeKind.Local).AddTicks(1100),
                             Details = "Big villa bulding in 2011",
                             ImageUrl = "",
                             Name = "Diamond Villa",
@@ -122,7 +119,7 @@ namespace VillaAPI.Migrations
                         {
                             Id = 5,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 4, 1, 21, 14, 1, 318, DateTimeKind.Local).AddTicks(6180),
+                            CreatedDate = new DateTime(2023, 4, 2, 21, 52, 27, 287, DateTimeKind.Local).AddTicks(1100),
                             Details = "Big villa bulding in 1980",
                             ImageUrl = "",
                             Name = "Diamond Pool Villa",
@@ -142,7 +139,6 @@ namespace VillaAPI.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Details")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedDate")

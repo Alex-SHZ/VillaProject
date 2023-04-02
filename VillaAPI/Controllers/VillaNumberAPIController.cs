@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,17 +20,20 @@ namespace VillaAPI.Controllers;
 public class VillaNumberAPIController : ControllerBase
 {
     private readonly IVillaNumberRepository _dbVillaNumber;
+    private readonly IVillaRepository _dbVilla;
     private readonly IMapper _mapper;
     private readonly ILogger<VillaAPIController> _logger;
     protected APIResponse _responce;
 
     public VillaNumberAPIController(
         ILogger<VillaAPIController> logger,
-        IVillaNumberRepository dbVilla,
+        IVillaNumberRepository dbVillaNumber,
+        IVillaRepository dbVilla,
         IMapper mapper)
     {
         _logger = logger;
-        _dbVillaNumber = dbVilla;
+        _dbVilla = dbVilla;
+        _dbVillaNumber = dbVillaNumber;
         _mapper = mapper;
         _responce = new();
     }
@@ -41,7 +45,7 @@ public class VillaNumberAPIController : ControllerBase
     {
         try
         {
-            IEnumerable<VillaNumber> villaNumbersList = await _dbVillaNumber.GetAllAsync();
+            IEnumerable<VillaNumber> villaNumbersList = await _dbVillaNumber.GetAllAsync(includeProperties:"Villa");
             _responce.Result = _mapper.Map<List<VillaNumberDTO>>(villaNumbersList);
             _responce.StatucCode = HttpStatusCode.OK;
             return Ok(_responce);
@@ -103,6 +107,14 @@ public class VillaNumberAPIController : ControllerBase
                 _responce.StatucCode = HttpStatusCode.BadRequest;
                 _responce.Result =
                     new List<string>() { "CustomError", "Villa number already Exists!" };
+                return BadRequest(_responce);
+            }
+
+            if (await _dbVilla.GetAsync(u => u.Id == createDTO.VillaId) == null)
+            {
+                _responce.StatucCode = HttpStatusCode.BadRequest;
+                _responce.Result =
+                    new List<string>() { "CustomError", "Villa Id is Invalid!" };
                 return BadRequest(_responce);
             }
 
@@ -183,6 +195,14 @@ public class VillaNumberAPIController : ControllerBase
             if (updateDTO == null || id != updateDTO.VillaNo)
             {
                 _responce.StatucCode = HttpStatusCode.BadRequest;
+                return BadRequest(_responce);
+            }
+
+            if (await _dbVilla.GetAsync(u => u.Id == updateDTO.VillaId) == null)
+            {
+                _responce.StatucCode = HttpStatusCode.BadRequest;
+                _responce.Result =
+                    new List<string>() { "CustomError", "Villa Id is Invalid!" };
                 return BadRequest(_responce);
             }
 
