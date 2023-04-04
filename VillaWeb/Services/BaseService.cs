@@ -52,10 +52,32 @@ public class BaseService : IBaseService
             apiResponse = await client.SendAsync(message);
 
             string apiContent = await apiResponse.Content.ReadAsStringAsync();
+            try
+            {
+                APIResponse ApiResponse = JsonConvert.DeserializeObject<APIResponse>(apiContent);
+                if (apiResponse.StatusCode == System.Net.HttpStatusCode.BadRequest
+                    || apiResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
+                    ApiResponse.IsSucces = false;
+
+
+                    string res = JsonConvert.SerializeObject(ApiResponse);
+
+                    T returnObj = JsonConvert.DeserializeObject<T>(res);
+
+                    return returnObj;
+                }
+            }
+            catch (Exception e)
+            {
+                var exceptionResponse = JsonConvert.DeserializeObject<T>(apiContent);
+                return exceptionResponse;
+            }
 
             T APIResponse = JsonConvert.DeserializeObject<T>(apiContent);
-
             return APIResponse;
+
         }
         catch (Exception e)
         {

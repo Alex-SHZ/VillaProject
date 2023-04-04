@@ -71,7 +71,26 @@ public class VillaNumberController : Controller
             {
                 return RedirectToAction(nameof(IndexVillaNumber));
             }
+            else
+            {
+                if (response.ErrorMessages.Count > 0 || response.ErrorMessages == null)
+                {
+                    ModelState.AddModelError("ErrorMessages", response.ErrorMessages.FirstOrDefault());
+                }
+            }
         }
+
+        APIResponse resp = await _villaService.GetAllAsync<APIResponse>();
+        if (resp != null && resp.IsSucces)
+        {
+            model.VillaList = JsonConvert.DeserializeObject<List<VillaDTO>>
+                (Convert.ToString(resp.Result)).Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                }); ;
+        }
+
         return View(model);
     }
 

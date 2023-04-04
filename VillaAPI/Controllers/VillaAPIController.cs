@@ -102,7 +102,7 @@ public class VillaAPIController : ControllerBase
             {
                 _responce.StatucCode = HttpStatusCode.BadRequest;
                 _responce.Result =
-                    new List<string>() { "CustomError", "Villa already Exists!" };
+                    new List<string>() { "ErrorMessages", "Villa already Exists!" };
                 return BadRequest(_responce);
             }
 

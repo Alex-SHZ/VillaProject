@@ -106,7 +106,7 @@ public class VillaNumberAPIController : ControllerBase
             {
                 _responce.StatucCode = HttpStatusCode.BadRequest;
                 _responce.Result =
-                    new List<string>() { "CustomError", "Villa number already Exists!" };
+                    new List<string>() { "ErrorMessages", "Villa number already Exists!" };
                 return BadRequest(_responce);
             }
 
@@ -114,7 +114,7 @@ public class VillaNumberAPIController : ControllerBase
             {
                 _responce.StatucCode = HttpStatusCode.BadRequest;
                 _responce.Result =
-                    new List<string>() { "CustomError", "Villa Id is Invalid!" };
+                    new List<string>() { "ErrorMessages", "Villa Id is Invalid!" };
                 return BadRequest(_responce);
             }
 
@@ -202,7 +202,7 @@ public class VillaNumberAPIController : ControllerBase
             {
                 _responce.StatucCode = HttpStatusCode.BadRequest;
                 _responce.Result =
-                    new List<string>() { "CustomError", "Villa Id is Invalid!" };
+                    new List<string>() { "ErrorMessages", "Villa Id is Invalid!" };
                 return BadRequest(_responce);
             }
 
