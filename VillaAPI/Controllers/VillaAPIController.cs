@@ -69,7 +69,7 @@ public class VillaAPIController : ControllerBase
                 return BadRequest(_responce);
             }
 
-            var villa = await _dbVilla.GetAsync(u => u.Id == id);
+            Villa villa = await _dbVilla.GetAsync(u => u.Id == id);
 
             if (villa == null)
             {
@@ -100,10 +100,8 @@ public class VillaAPIController : ControllerBase
         {
             if (await _dbVilla.GetAsync(u => u.Name.ToLower() == createDTO.Name.ToLower()) != null)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                _responce.Result =
-                    new List<string>() { "ErrorMessages", "Villa already Exists!" };
-                return BadRequest(_responce);
+                ModelState.AddModelError("ErrorMessages", "Villa already Exists!");
+                return BadRequest(ModelState);
             }
 
             if (createDTO == null)
@@ -142,10 +140,7 @@ public class VillaAPIController : ControllerBase
         {
             if (id == 0)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                _responce.ErrorMessages =
-                    new List<string>() { "Id is not exist" };
-                return BadRequest(_responce);
+                return BadRequest();
             }
 
 
@@ -153,8 +148,7 @@ public class VillaAPIController : ControllerBase
 
             if (villa == null)
             {
-                _responce.StatucCode = HttpStatusCode.NotFound;
-                return NotFound(_responce);
+                return NotFound();
             }
 
             await _dbVilla.RemoveAsync(villa);
@@ -182,8 +176,7 @@ public class VillaAPIController : ControllerBase
         {
             if (updateDTO == null || id != updateDTO.Id)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                return BadRequest(_responce);
+                return BadRequest();
             }
 
             Villa model = _mapper.Map<Villa>(updateDTO);
@@ -200,7 +193,7 @@ public class VillaAPIController : ControllerBase
             _responce.ErrorMessages =
                 new List<string>() { ex.ToString() };
         }
-        return (_responce);
+        return _responce;
     }
 
     [HttpPatch("{id:int}", Name = "UpdatePartialVilla")]

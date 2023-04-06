@@ -104,25 +104,19 @@ public class VillaNumberAPIController : ControllerBase
         {
             if (await _dbVillaNumber.GetAsync(u => u.VillaNo == createDTO.VillaNo) != null)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                _responce.Result =
-                    new List<string>() { "ErrorMessages", "Villa number already Exists!" };
-                return BadRequest(_responce);
+                ModelState.AddModelError("ErrorMessages", "Villa Number already Exists!");
+                return BadRequest(ModelState);
             }
 
             if (await _dbVilla.GetAsync(u => u.Id == createDTO.VillaId) == null)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                _responce.Result =
-                    new List<string>() { "ErrorMessages", "Villa Id is Invalid!" };
-                return BadRequest(_responce);
+                ModelState.AddModelError("ErrorMessages", "Villa ID is Invalid!");
+                return BadRequest(ModelState);
             }
 
             if (createDTO == null)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                _responce.Result = createDTO;
-                return BadRequest(_responce);
+                return BadRequest(createDTO);
             }
 
 
@@ -154,10 +148,7 @@ public class VillaNumberAPIController : ControllerBase
         {
             if (id == 0)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                _responce.ErrorMessages =
-                    new List<string>() { "Id is not exist" };
-                return BadRequest(_responce);
+                return BadRequest();
             }
 
 
@@ -165,8 +156,7 @@ public class VillaNumberAPIController : ControllerBase
 
             if (villaNumber == null)
             {
-                _responce.StatucCode = HttpStatusCode.NotFound;
-                return NotFound(_responce);
+                return NotFound();
             }
 
             await _dbVillaNumber.RemoveAsync(villaNumber);
@@ -194,16 +184,12 @@ public class VillaNumberAPIController : ControllerBase
         {
             if (updateDTO == null || id != updateDTO.VillaNo)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                return BadRequest(_responce);
+                return BadRequest();
             }
-
             if (await _dbVilla.GetAsync(u => u.Id == updateDTO.VillaId) == null)
             {
-                _responce.StatucCode = HttpStatusCode.BadRequest;
-                _responce.Result =
-                    new List<string>() { "ErrorMessages", "Villa Id is Invalid!" };
-                return BadRequest(_responce);
+                ModelState.AddModelError("ErrorMessages", "Villa ID is Invalid!");
+                return BadRequest(ModelState);
             }
 
             VillaNumber model = _mapper.Map<VillaNumber>(updateDTO);

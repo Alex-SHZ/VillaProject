@@ -23,9 +23,12 @@ public class BaseService : IBaseService
         try
         {
             HttpClient client = httpClient.CreateClient("Villa");
+
             HttpRequestMessage message = new();
+
             message.Headers.Add("Accept", "application/json");
             message.RequestUri = new Uri(apiRequest.Url);
+
             if (apiRequest.Data != null)
             {
                 message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data),
@@ -52,6 +55,7 @@ public class BaseService : IBaseService
             apiResponse = await client.SendAsync(message);
 
             string apiContent = await apiResponse.Content.ReadAsStringAsync();
+
             try
             {
                 APIResponse ApiResponse = JsonConvert.DeserializeObject<APIResponse>(apiContent);
@@ -60,7 +64,6 @@ public class BaseService : IBaseService
                 {
                     ApiResponse.StatusCode = System.Net.HttpStatusCode.BadRequest;
                     ApiResponse.IsSucces = false;
-
 
                     string res = JsonConvert.SerializeObject(ApiResponse);
 
@@ -71,7 +74,7 @@ public class BaseService : IBaseService
             }
             catch (Exception e)
             {
-                var exceptionResponse = JsonConvert.DeserializeObject<T>(apiContent);
+                T exceptionResponse = JsonConvert.DeserializeObject<T>(apiContent);
                 return exceptionResponse;
             }
 
