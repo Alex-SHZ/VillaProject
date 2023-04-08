@@ -14,6 +14,7 @@
     <None Remove="Views\Villa\" />
     <None Remove="Views\VillaNumber\" />
     <None Remove="Models\VM\" />
+    <None Remove="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\DTO\" />
@@ -22,6 +23,7 @@
     <Folder Include="Views\Villa\" />
     <Folder Include="Views\VillaNumber\" />
     <Folder Include="Models\VM\" />
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VillaUtility\VillaUtility.csproj">

@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using VillaUtility;
 using VillaWeb.Models;
 using VillaWeb.Models.DTO;
 using VillaWeb.Services.IServices;
@@ -23,7 +24,7 @@ public class HomeController : Controller
     {
         List<VillaDTO> list = new();
 
-        APIResponse response = await _villaService.GetAllAsync<APIResponse>();
+        APIResponse response = await _villaService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(StaticDetails.SessionToken));
 
         if (response != null && response.IsSucces)
         {

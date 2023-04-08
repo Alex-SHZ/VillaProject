@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using VillaUtility;
@@ -51,6 +52,11 @@ public class BaseService : IBaseService
             }
 
             HttpResponseMessage apiResponse = null;
+
+            if (!string.IsNullOrEmpty(apiRequest.Token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.Token);
+            }
 
             apiResponse = await client.SendAsync(message);
 
