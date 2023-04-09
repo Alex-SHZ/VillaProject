@@ -15,20 +15,21 @@ using VillaAPI.Models;
 using VillaAPI.Models.DTO;
 using VillaAPI.Repository.IRepository;
 
-namespace VillaAPI.Controllers;
+namespace VillaAPI.Controllers.v1;
 
-[Route("api/VillaNumberAPI")]
+[Route("api/v{version:apiVersion}/VillaNumberAPI")]
 [ApiController]
+[ApiVersion("1.0")]
 public class VillaNumberAPIController : ControllerBase
 {
     private readonly IVillaNumberRepository _dbVillaNumber;
     private readonly IVillaRepository _dbVilla;
     private readonly IMapper _mapper;
-    private readonly ILogger<VillaAPIController> _logger;
+    private readonly ILogger<VillaNumberAPIController> _logger;
     protected APIResponse _responce;
 
     public VillaNumberAPIController(
-        ILogger<VillaAPIController> logger,
+        ILogger<VillaNumberAPIController> logger,
         IVillaNumberRepository dbVillaNumber,
         IVillaRepository dbVilla,
         IMapper mapper)
@@ -39,7 +40,6 @@ public class VillaNumberAPIController : ControllerBase
         _mapper = mapper;
         _responce = new();
     }
-
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -59,6 +59,13 @@ public class VillaNumberAPIController : ControllerBase
                 new List<string>() { ex.ToString() };
         }
         return (_responce);
+    }
+
+    [MapToApiVersion("2.0")]
+    [HttpGet]
+    public IEnumerable<string> Get()
+    {
+        return new string[] { "value1", "value2" };
     }
 
     [HttpGet("{id:int}", Name = "GetVillaNumber")]
@@ -97,10 +104,10 @@ public class VillaNumberAPIController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "admin")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [Authorize(Roles = "admin")]
     public async Task<ActionResult<APIResponse>> CreateVillaNumber([FromBody] VillaNumberCreateDTO createDTO)
     {
         try
@@ -141,10 +148,10 @@ public class VillaNumberAPIController : ControllerBase
         return (_responce);
     }
 
+    [HttpDelete("{id:int}", Name = "DeleteVillaNumber")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [HttpDelete("{id:int}", Name = "DeleteVillaNumber")]
     [Authorize(Roles = "admin")]
     public async Task<ActionResult<APIResponse>> DeleteVillaNumber(int id)
     {

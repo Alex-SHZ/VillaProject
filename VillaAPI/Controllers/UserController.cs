@@ -7,8 +7,9 @@ using VillaAPI.Repository.IRepository;
 
 namespace VillaAPI.Controllers;
 
-[Route("api/UsersAuth")]
+[Route("api/v{version:apiVersion}/UsersAuth")]
 [ApiController]
+[ApiVersionNeutral]
 public class UsersController : Controller
 {
     private readonly IUserRepository _userRepo;
@@ -48,7 +49,7 @@ public class UsersController : Controller
             return BadRequest(_response);
         }
 
-        LocalUser user = await _userRepo.Register(model);
+        UserDTO user = await _userRepo.Register(model);
         if (user == null)
         {
             _response.StatucCode = HttpStatusCode.BadRequest;

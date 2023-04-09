@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
+using Azure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +15,11 @@ using VillaAPI.Models;
 using VillaAPI.Models.DTO;
 using VillaAPI.Repository.IRepository;
 
-namespace VillaAPI.Controllers;
+namespace VillaAPI.Controllers.v1;
 
-[Route("api/VillaAPI")]
+[Route("api/v{version:apiVersion}/VillaAPI")]
 [ApiController]
+[ApiVersion("1.0")]
 public class VillaAPIController : ControllerBase
 {
     private readonly IVillaRepository _dbVilla;
@@ -38,16 +41,32 @@ public class VillaAPIController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<APIResponse>> GetVillas()
+    [ResponseCache(CacheProfileName = "Default30")]
+    public async Task<ActionResult<APIResponse>> GetVillas([FromQuery(Name = "filterOccupancy")] int? occupancy,
+        [FromQuery] string? search, int pageSize = 0, int pageNumber = 1)
     {
         try
         {
-            IEnumerable<Villa> villaList = await _dbVilla.GetAllAsync();
+            IEnumerable<Villa> villaList;
+
+            if (occupancy > 0)
+                villaList = await _dbVilla.GetAllAsync(u => u.Occupancy == occupancy, pageSize: pageSize, pageNumber: pageNumber);
+            else
+                villaList = await _dbVilla.GetAllAsync(pageSize: pageSize, pageNumber: pageNumber);
+
+            if (!string.IsNullOrEmpty(search))
+                villaList = villaList.Where(u => u.Name.ToLower().Contains(search));
+
+            Pagination pagination = new() { PageNumber = pageNumber, PageSize = pageSize };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagination));
+
             _responce.Result = _mapper.Map<List<VillaDTO>>(villaList);
             _responce.StatucCode = HttpStatusCode.OK;
             return Ok(_responce);
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _responce.IsSucces = false;
             _responce.ErrorMessages =
