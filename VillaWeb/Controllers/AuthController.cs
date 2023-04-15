@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using VillaUtility;
@@ -21,10 +22,11 @@ namespace VillaWeb.Controllers;
     }
 
     [HttpGet]
-    public IActionResult Login()
+    [Authorize]
+    public async Task<IActionResult> Login()
     {
-        LoginRequestDTO obj = new();
-        return View(obj);
+        string accessToken = await HttpContext.GetTokenAsync("access_token");
+        return RedirectToAction(nameof(Index), "Home");
     }
 
     [HttpPost]
@@ -78,6 +80,7 @@ namespace VillaWeb.Controllers;
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync();
+        SignOut("Cookies", "oidc");
         HttpContext.Session.SetString(StaticDetails.SessionToken, "");
         return RedirectToAction("Index", "Home");
     }

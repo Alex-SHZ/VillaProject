@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using VillaWeb;
 using VillaWeb.Services;
 using VillaWeb.Services.IServices;
@@ -21,14 +23,44 @@ builder.Services.AddScoped<IVillaNumberService, VillaNumberService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication
+    (options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = "oidc";
+    })
               .AddCookie(options =>
               {
-                  options.Cookie.HttpOnly = true;
-                  options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                  options.LoginPath = "/Auth/Login";
-                  options.AccessDeniedPath = "/Auth/AccessDenied";
-                  options.SlidingExpiration = true;
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.LoginPath = "/Auth/Login";
+                options.AccessDeniedPath = "/Auth/AccessDenied";
+                options.SlidingExpiration = true;
+              })
+              .AddOpenIdConnect("oidc", options => {
+                options.Authority = builder.Configuration["ServiceUrls:IdentityAPI"];
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.ClientId = "villa";
+                options.ClientSecret = "secret";
+                options.ResponseType = "code";
+
+                options.TokenValidationParameters.NameClaimType = "name";
+                options.TokenValidationParameters.RoleClaimType = "role";
+                options.Scope.Add("villa");
+                options.SaveTokens = true;
+
+
+                options.ClaimActions.MapJsonKey("role", "role");
+
+                options.Events = new OpenIdConnectEvents
+                {
+                    OnRemoteFailure = context =>
+                    {
+                        context.Response.Redirect("/");
+                        context.HandleResponse();
+                        return Task.FromResult(0);
+                    }
+                };
               });
 
 builder.Services.AddSession(options =>

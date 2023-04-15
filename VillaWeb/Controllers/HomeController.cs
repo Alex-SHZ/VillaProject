@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using VillaUtility;
@@ -24,7 +25,7 @@ public class HomeController : Controller
     {
         List<VillaDTO> list = new();
 
-        APIResponse response = await _villaService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(StaticDetails.SessionToken));
+        APIResponse response = await _villaService.GetAllAsync<APIResponse>(await HttpContext.GetTokenAsync("access_token"));
 
         if (response != null && response.IsSucces)
         {
