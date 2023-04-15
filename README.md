@@ -4,29 +4,22 @@
 
 - 📄 Know about my experience - you can **request me for CV** by email/telegram
 
-<h3 align="left">What I do: </h3>
+<h3 align="left">What the project is using: </h3>
 
-🌐&nbsp;APS.NET
+🌐&nbsp;APS.NET Core
+1. Web API
+2. Web client with Razor MVC 
+3. PostgreSQL 
+4. EntityFramework 
+5. AutoMapper 
+6. Identity Server Duende 6 
+7. Versioning API 
+8. Deploy on Azure
 
-<h3 align="left">:email:	Connect with me: </h3>
-<h4 align="left">Telegram: @SHZ_Alex </h4>
-<h4 align="left">E-mail: Xardas366@gmail.com </h4>
-<h4 align="left">LinkedIn: (The link will appear in the future) </h4>
-
-
-
-### My latest project:
-#### ConsoleApplication:
-#### - [Game Tic tac toe](https://github.com/Alex-SHZ/portfolio/tree/main/ConsoleApplication/NaughtsAndCrosses)
-#### - [Game Snake](https://github.com/Alex-SHZ/portfolio/tree/main/ConsoleApplication/Snake)
-#### - [ActManager](https://github.com/Alex-SHZ/portfolio/tree/main/ConsoleApplication/ActManager)
-#### WPF:
-#### - [Game ping pong on WPF](https://github.com/Alex-SHZ/portfolio/tree/main/WPF/PingPong)
-#### xUnit tests:
-#### - [Unit tests on ActManager](https://github.com/Alex-SHZ/portfolio/tree/main/ConsoleApplication/ActEngineTests)
-#### ASP.NET:
-#### - [NutsShop](https://github.com/Alex-SHZ/Portfolio/tree/main/ASP.NET/NutsShop)
-#### - [MetricsManager](https://github.com/Alex-SHZ/Portfolio/tree/main/ASP.NET/MetricsMain)
-#### - [Accounting of personnel at the enterprise](https://github.com/Alex-SHZ/Portfolio/tree/main/ASP.NET/AccountingSystem)
-#### SQL:
-#### - [SQL request](https://github.com/Alex-SHZ/portfolio/tree/main/SQL)
+:email:	Connect with me:
+<br>
+Telegram: @SHZ_Alex
+<br>
+E-mail: Xardas366@gmail.com
+<br>
+[LinkedIn](https://www.linkedin.com/in/%D0%B0%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80-%D1%88%D1%82%D0%B5%D1%84%D0%B0%D0%BD-809258245/?locale=en_US)
