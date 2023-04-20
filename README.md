@@ -22,4 +22,4 @@ Telegram: @SHZ_Alex
 <br>
 E-mail: Xardas366@gmail.com
 <br>
-[LinkedIn](https://www.linkedin.com/in/%D0%B0%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80-%D1%88%D1%82%D0%B5%D1%84%D0%B0%D0%BD-809258245/?locale=en_US)
+[LinkedIn](https://www.linkedin.com/in/shzalex/)
